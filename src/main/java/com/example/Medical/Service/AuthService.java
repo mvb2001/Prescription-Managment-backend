@@ -40,8 +40,8 @@ public class AuthService {
         return new AuthResponse(token, "DOCTOR");
     }
 
-    public AuthResponse signupPharmacist(PharmacistSignupRequest request, String doctorNic) {
-        Doctor doctor = doctorRepository.findById(doctorNic)
+    public AuthResponse signupPharmacist(PharmacistSignupRequest request, String doctorEmail) {
+        Doctor doctor = doctorRepository.findByEmail(doctorEmail)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         Pharmacist pharmacist = Pharmacist.builder()

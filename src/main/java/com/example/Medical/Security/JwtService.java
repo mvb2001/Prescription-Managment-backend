@@ -25,7 +25,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // Token for Doctor
+    // Generate token for Doctor
     public String generateToken(Doctor doctor) {
         return Jwts.builder()
                 .setSubject(doctor.getEmail())
@@ -36,7 +36,7 @@ public class JwtService {
                 .compact();
     }
 
-    // Token for Pharmacist
+    // Generate token for Pharmacist
     public String generateToken(Pharmacist pharmacist) {
         return Jwts.builder()
                 .setSubject(pharmacist.getEmail())
@@ -47,7 +47,7 @@ public class JwtService {
                 .compact();
     }
 
-    // Extract email
+    // Extract email from token
     public String extractEmail(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(getKey())
@@ -57,7 +57,7 @@ public class JwtService {
         return claims.getSubject();
     }
 
-    // Extract role
+    // Extract role from token
     public String extractRole(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(getKey())
@@ -67,13 +67,23 @@ public class JwtService {
         return claims.get("role", String.class);
     }
 
-    // ✅ Check if token is valid for a Doctor
-    public boolean isTokenValid(String token, Doctor doctor) {
-        final String email = extractEmail(token);
-        return (email.equals(doctor.getEmail())) && !isTokenExpired(token);
+    // Generic token validation for Doctor or Pharmacist
+    public <T> boolean isTokenValid(String token, T user) {
+        String email = extractEmail(token);
+        String userEmail;
+
+        if (user instanceof Doctor doctor) {
+            userEmail = doctor.getEmail();
+        } else if (user instanceof Pharmacist pharmacist) {
+            userEmail = pharmacist.getEmail();
+        } else {
+            return false; // unknown type
+        }
+
+        return email.equals(userEmail) && !isTokenExpired(token);
     }
 
-    // ✅ Check if token is expired
+    // Check if token expired
     private boolean isTokenExpired(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(getKey())
