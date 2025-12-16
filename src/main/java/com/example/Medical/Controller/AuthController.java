@@ -4,7 +4,6 @@ import com.example.Medical.DTO.AuthResponse;
 import com.example.Medical.DTO.DoctorSignupRequest;
 import com.example.Medical.DTO.LoginRequest;
 import com.example.Medical.DTO.PharmacistSignupRequest;
-import com.example.Medical.DTO.*;
 import com.example.Medical.Service.AuthService;
 import com.example.Medical.model.Doctor;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class AuthController {
 
         Doctor doctor = (Doctor) authentication.getPrincipal();
 
-        return authService.signupPharmacist(request, doctor.getNic());
+        return authService.signupPharmacist(request, doctor.getEmail());
     }
 
     @PostMapping("/login")
