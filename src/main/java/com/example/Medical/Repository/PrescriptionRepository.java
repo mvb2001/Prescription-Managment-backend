@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
     List<Prescription> findAllByPatientIdAndDoctorEmail(Long patientId, String doctorEmail);
-     List<Prescription> findAllByOrderByCreatedAtAsc();
+    List<Prescription> findAllByOrderByCreatedAtAsc();
+    List<Prescription> findAllByDoctorEmailOrderByCreatedAtAsc(String doctorEmail);
 }
 

@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/patient")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class PatientController {
 
     private final PatientService patientService;
@@ -49,6 +50,12 @@ public class PatientController {
 
         
         return prescriptionService.getPrescriptionsByPatientAndDoctor(patientId, doctorEmail);
+    }
+
+    @GetMapping("/all")
+    public List<Patient> getAllPatients(Authentication authentication) {
+        String doctorEmail = authentication.getName();
+        return patientService.getPatientsByDoctor(doctorEmail);
     }
 
 }

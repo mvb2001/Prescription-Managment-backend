@@ -24,6 +24,6 @@ public class Pharmacist {
     private String contact;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_email")
+    @JoinColumn(name = "doctor_email", referencedColumnName = "email")
     private Doctor doctor;
 }

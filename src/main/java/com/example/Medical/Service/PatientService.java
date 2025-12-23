@@ -41,9 +41,9 @@ public class PatientService {
         return patientRepository.findByDoctorEmail(doctorEmail);
     }
 
-//    public Patient getPatientById(Long patientId, String doctorNic) {
-//        return patientRepository.findById(patientId)
-//                .filter(p -> p.getDoctorNic().equals(doctorEmail))
-//                .orElseThrow(() -> new RuntimeException("Patient not found or not authorized"));
-//    }
+    public List<Patient> getPatientsByDoctor(String doctorEmail) {
+        return patientRepository.findByDoctorEmail(doctorEmail);
+    }
+
+
 }

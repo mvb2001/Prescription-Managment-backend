@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/pharmacist")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PharmacistController {
 
     private final PrescriptionService prescriptionService;
@@ -20,6 +21,7 @@ public class PharmacistController {
     @GetMapping("/prescriptions")
     @PreAuthorize("hasRole('PHARMACIST')")
     public List<Prescription> getPrescriptions(Authentication authentication) {
-        return prescriptionService.getAllPrescriptionsForPharmacist();
+        String pharmacistEmail = authentication.getName();
+        return prescriptionService.getAllPrescriptionsForPharmacist(pharmacistEmail);
     }
 }
