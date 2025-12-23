@@ -31,7 +31,7 @@ A Spring Boot REST API application for managing medical prescriptions, patients,
 - **JWT (JSON Web Tokens)** - Secure token-based authentication
 - **JPA/Hibernate** - ORM for database operations
 - **Maven** - Dependency management and build tool
-- **MySQL/PostgreSQL** - Database (configurable)
+- **PostgreSQL** - Database 
 
 ## Project Structure
 
