@@ -30,6 +30,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        // Skip filter for public endpoints
+        String requestPath = request.getRequestURI();
+        if (requestPath.equals("/api/auth/login") || 
+            requestPath.equals("/api/auth/signup/doctor") ||
+            request.getMethod().equals("OPTIONS")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -57,13 +66,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                             List.of(new SimpleGrantedAuthority("ROLE_DOCTOR"))
                                     );
                             SecurityContextHolder.getContext().setAuthentication(authToken);
-                            System.out.println("✅ Authentication set for DOCTOR: " + email);
+                            System.out.println("Authentication set for DOCTOR: " + email);
                         } else {
-                            System.out.println("❌ Token validation failed for DOCTOR: " + email);
+                            System.out.println("Token validation failed for DOCTOR: " + email);
                         }
                     });
                     if (doctorRepository.findByEmail(email).isEmpty()) {
-                        System.out.println("❌ Doctor not found in DB: " + email);
+                        System.out.println(" Doctor not found in DB: " + email);
                     }
                     break;
 
