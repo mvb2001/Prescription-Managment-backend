@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/pharmacist")
-@CrossOrigin(origins = "http://localhost:5173")
 public class PharmacistController {
 
     private final PrescriptionService prescriptionService;
