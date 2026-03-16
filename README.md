@@ -31,57 +31,8 @@ A Spring Boot REST API application for managing medical prescriptions, patients,
 - **JWT (JSON Web Tokens)** - Secure token-based authentication
 - **JPA/Hibernate** - ORM for database operations
 - **Maven** - Dependency management and build tool
-- **MySQL/PostgreSQL** - Database (configurable)
+- **PostgreSQL** - Database 
 
-## Project Structure
-
-```
-Medical_b/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/Medical/
-│   │   │   ├── MedicalApplication.java          # Main application class
-│   │   │   ├── Config/
-│   │   │   │   ├── JwtAuthFilter.java           # JWT authentication filter
-│   │   │   │   └── SecurityConfig.java          # Security configuration
-│   │   │   ├── Controller/
-│   │   │   │   ├── AuthController.java          # Authentication endpoints
-│   │   │   │   ├── PatientController.java       # Patient management endpoints
-│   │   │   │   └── PharmacistController.java    # Pharmacist endpoints
-│   │   │   ├── DTO/
-│   │   │   │   ├── AuthResponse.java            # Authentication response
-│   │   │   │   ├── DoctorSignupRequest.java     # Doctor registration DTO
-│   │   │   │   ├── LoginRequest.java            # Login request DTO
-│   │   │   │   ├── PatientRequest.java          # Patient data DTO
-│   │   │   │   ├── PharmacistSignupRequest.java # Pharmacist registration DTO
-│   │   │   │   └── PrescriptionRequest.java     # Prescription data DTO
-│   │   │   ├── model/
-│   │   │   │   ├── Doctor.java                  # Doctor entity
-│   │   │   │   ├── Patient.java                 # Patient entity
-│   │   │   │   ├── Pharmacist.java              # Pharmacist entity
-│   │   │   │   └── Prescription.java            # Prescription entity
-│   │   │   ├── Repository/
-│   │   │   │   ├── DoctorRepository.java
-│   │   │   │   ├── PatientRepository.java
-│   │   │   │   ├── PharmacistRepository.java
-│   │   │   │   └── PrescriptionRepository.java
-│   │   │   ├── Security/
-│   │   │   │   └── JwtService.java              # JWT utility service
-│   │   │   └── Service/
-│   │   │       ├── AuthService.java             # Authentication service
-│   │   │       ├── PatientService.java          # Patient business logic
-│   │   │       └── PrescriptionService.java     # Prescription business logic
-│   │   └── resources/
-│   │       └── application.properties           # Application configuration
-│   └── test/
-│       └── java/com/example/Medical/
-│           ├── MedicalApplicationTests.java
-│           ├── Controller/
-│           ├── Integration/
-│           ├── Repository/
-│           └── Service/
-└── pom.xml                                       # Maven dependencies
-```
 
 ## Prerequisites
 
@@ -107,6 +58,7 @@ Medical_b/
    spring.datasource.password=your_password
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true
+   server.port=9090
    
    # JWT Configuration
    jwt.secret=your_secret_key
@@ -134,43 +86,8 @@ Medical_b/
    .\mvnw.cmd spring-boot:run  # Windows
    ```
 
-The application will start on `http://localhost:8080`
+The application will start on `http://localhost:9090`
 
-## API Endpoints
-
-### Authentication
-
-| Method | Endpoint | Description | Access |
-|--------|----------|-------------|--------|
-| POST | `/auth/doctor/signup` | Register a new doctor | Public |
-| POST | `/auth/pharmacist/signup` | Register a new pharmacist | Public |
-| POST | `/auth/login` | Login user | Public |
-
-### Patient Management
-
-| Method | Endpoint | Description | Access |
-|--------|----------|-------------|--------|
-| GET | `/patients` | Get all patients | Authenticated |
-| GET | `/patients/{id}` | Get patient by ID | Authenticated |
-| POST | `/patients` | Create new patient | Doctor |
-| PUT | `/patients/{id}` | Update patient | Doctor |
-| DELETE | `/patients/{id}` | Delete patient | Doctor |
-
-### Pharmacist Operations
-
-| Method | Endpoint | Description | Access |
-|--------|----------|-------------|--------|
-| GET | `/pharmacists` | Get all pharmacists | Authenticated |
-| GET | `/pharmacists/{id}` | Get pharmacist by ID | Authenticated |
-
-### Prescription Management
-
-| Method | Endpoint | Description | Access |
-|--------|----------|-------------|--------|
-| GET | `/prescriptions` | Get all prescriptions | Authenticated |
-| GET | `/prescriptions/{id}` | Get prescription by ID | Authenticated |
-| POST | `/prescriptions` | Create prescription | Doctor |
-| PUT | `/prescriptions/{id}` | Update prescription | Doctor/Pharmacist |
 
 ## Authentication
 
@@ -216,19 +133,12 @@ Authorization: Bearer <your_jwt_token>
    Headers: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
    ```
 
-## Testing
-
-Run the tests using Maven:
-
-```bash
-mvn test
-```
 
 ## Configuration
 
 Key configuration properties in `application.properties`:
 
-- **Server Port**: `server.port=8080`
+- **Server Port**: `server.port=9090`
 - **Database URL**: `spring.datasource.url`
 - **JWT Secret**: `jwt.secret`
 - **JWT Expiration**: `jwt.expiration`
@@ -257,28 +167,3 @@ java -jar target/Medical-0.0.1-SNAPSHOT.jar
 - Secure HTTP endpoints
 - CORS configuration
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or support, please contact the development team.
-
-## Future Enhancements
-
-- [ ] Add email notifications for prescriptions
-- [ ] Implement prescription history tracking
-- [ ] Add patient portal for viewing prescriptions
-- [ ] Integrate with pharmacy management systems
-- [ ] Add support for prescription refills
-- [ ] Implement audit logging
-- [ ] Add API documentation with Swagger/OpenAPI
