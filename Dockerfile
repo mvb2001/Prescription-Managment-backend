@@ -8,6 +8,9 @@ COPY .mvn .mvn
 # Copy source code
 COPY src src
 
+# Make mvnw executable
+RUN chmod +x mvnw
+
 # Build the JAR
 RUN ./mvnw clean package -DskipTests
 
