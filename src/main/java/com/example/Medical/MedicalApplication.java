@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MedicalApplication {
 
 	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.load();
+		Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 		setPropertyIfPresent("DB_URL", dotenv.get("DB_URL"));
 		setPropertyIfPresent("DB_USERNAME", dotenv.get("DB_USERNAME"));
 		setPropertyIfPresent("DB_PASSWORD", dotenv.get("DB_PASSWORD"));

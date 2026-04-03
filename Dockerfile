@@ -20,5 +20,5 @@ WORKDIR /app
 # Copy the built JAR from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
-# Use Render dynamic port
-ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
+# Use the application default port from application.properties
+ENTRYPOINT ["java", "-jar", "app.jar"]
