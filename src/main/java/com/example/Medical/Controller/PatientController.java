@@ -7,7 +7,6 @@ import com.example.Medical.Service.PrescriptionService;
 import com.example.Medical.model.Patient;
 import com.example.Medical.model.Prescription;
 import com.example.Medical.Service.PatientService;
-import com.example.Medical.Service.PrescriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
